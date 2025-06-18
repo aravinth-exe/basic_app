@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE = "aravinthexe/simple_mlflow"
+        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinth-exe/basic_app:latest"
     }
 
     stages {
@@ -56,24 +57,24 @@ pipeline {
       }
     }
 
-    stage('Deploy to ECS') {
-      steps {
-        withCredentials([
-          string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-          string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
-        ]) {
-          script {
-            bat """
-              aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
-              aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
-              aws ecs update-service ^
-                --cluster timeseries-forecasting ^
-                --service timeseries-forecasting-service-3c4jeu0g ^
-                --force-new-deployment ^
-                --region %REGION%
-            """
-          }
-        }
-      }
-    }
+    // stage('Deploy to ECS') {
+    //   steps {
+    //     withCredentials([
+    //       string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+    //       string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+    //     ]) {
+    //       script {
+    //         bat """
+    //           aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
+    //           aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+    //           aws ecs update-service ^
+    //             --cluster timeseries-forecasting ^
+    //             --service timeseries-forecasting-service-3c4jeu0g ^
+    //             --force-new-deployment ^
+    //             --region %REGION%
+    //         """
+    //       }
+    //     }
+    //   }
+    // }
 }
