@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE= "aravinthexe/aravinthexe/simple_mlflow"
+        IMAGE = "aravinthexe/simple_mlflow"
     }
 
     stages {
@@ -14,7 +14,7 @@ pipeline {
         stage('Create Docker Image') {
             steps {
                 script {
-                    bat "docker build -t %IMAGE%:latest  --no-cache ."
+                    bat "docker build -t ${env.IMAGE}:latest --no-cache ."
                 }
             }
         }
@@ -28,13 +28,14 @@ pipeline {
                 )]) {
                     script {
                         bat """
-                            echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
-                            docker push %IMAGE%:latest
-                        """ 
+                            docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}
+                            docker push ${env.IMAGE}:latest
+                        """
                     }
                 }
-                
             }
         }
     }
+
+    // ECS deploy stage (commented)
 }
