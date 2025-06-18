@@ -43,15 +43,15 @@ pipeline {
                 string(credentialsId: 'basic_app_access_key', variable: 'AWS_ACCESS_KEY_ID'),
                 string(credentialsId: 'basic_app_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                script {
-                    bat """
-                    aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
-                    aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
-                    aws ecr get-login-password --region %REGION% | docker login --username AWS --password-stdin %AWS_ECR_URI%
-                    docker tag %IMAGE_NAME%:latest %AWS_ECR_URI%:latest
-                    docker push %AWS_ECR_URI%:latest
-                    """
-                }
+                    script {
+                        bat """
+                        aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
+                        aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+                        aws ecr get-login-password --region %REGION% | docker login --username AWS --password-stdin %AWS_ECR_URI%
+                        docker tag %IMAGE_NAME%:latest %AWS_ECR_URI%:latest
+                        docker push %AWS_ECR_URI%:latest
+                        """
+                    }
                 }
             }
         }
