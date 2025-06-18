@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE = "aravinthexe/simple_mlflow"
-        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinth-exe/basic_app:latest"
+        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinth-exe/basic_app"
     }
 
     stages {
