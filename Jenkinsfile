@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE = "aravinthexe/basic_app"
-        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinth-exe/basic_app"
+        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/basic_app"
     }
 
     stages {
