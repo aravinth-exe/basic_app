@@ -40,8 +40,8 @@ pipeline {
         stage('Push to AWS ECR') {
             steps {
                 withCredentials([
-                string(credentialsId: 'basic_app_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-                string(credentialsId: 'basic_app_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     script {
                         bat """
