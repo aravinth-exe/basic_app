@@ -52,7 +52,7 @@ pipeline {
                         --cluster basic_app_cluster ^
                         --service basic_app-service-rsy0hhl8 ^
                         --force-new-deployment ^
-                        --region %REGION%
+                        --region %REGION% 
                     """
                 }
                 }
