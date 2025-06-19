@@ -37,46 +37,25 @@ pipeline {
             }
         }
 
-        stage('Push to AWS ECR') {
+        stage('Deploy to ECS') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
+                string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                    script {
-                        bat """
-                        aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
-                        aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
-                        aws ecr get-login-password --region %REGION% | docker login --username AWS --password-stdin %AWS_ECR_URI%
-                        docker tag %IMAGE%:latest %AWS_ECR_URI%:latest
-                        docker push %AWS_ECR_URI%:latest
-                        """
-                    }
+                script {
+                    bat """
+                    aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
+                    aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+                    aws ecs update-service ^
+                        --cluster basic_app_cluster ^
+                        --service basic_app-service-rsy0hhl8 ^
+                        --force-new-deployment ^
+                        --region %REGION%
+                    """
+                }
                 }
             }
         }
     }
-
-    
-
-    // stage('Deploy to ECS') {
-    //   steps {
-    //     withCredentials([
-    //       string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
-    //       string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
-    //     ]) {
-    //       script {
-    //         bat """
-    //           aws configure set aws_access_key_id %AWS_ACCESS_KEY_ID%
-    //           aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
-    //           aws ecs update-service ^
-    //             --cluster timeseries-forecasting ^
-    //             --service timeseries-forecasting-service-3c4jeu0g ^
-    //             --force-new-deployment ^
-    //             --region %REGION%
-    //         """
-    //       }
-    //     }
-    //   }
-    // }
 }
