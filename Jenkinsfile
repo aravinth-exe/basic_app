@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE = "aravinthexe/basic_app"
         AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinthexe/basic_app"
-        REGION = "eu-north-1"
+        REGION = "us-east-1"
     }
     
     stages {
