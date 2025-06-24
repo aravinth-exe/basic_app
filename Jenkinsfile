@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         IMAGE = "aravinthexe/basic_app"
-        AWS_ECR_URI = "414028192219.dkr.ecr.eu-north-1.amazonaws.com/aravinthexe/basic_app"
         REGION = "us-east-1"
     }
     
@@ -50,7 +49,7 @@ pipeline {
                     aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
                     aws ecs update-service ^
                         --cluster basic_app_cluster ^
-                        --service basic_app-service-rsy0hhl8 ^
+                        --service basic_app-service-lkn5lspv ^
                         --force-new-deployment ^
                         --region %REGION%
                     """
