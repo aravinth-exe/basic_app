@@ -49,7 +49,7 @@ pipeline {
                     aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
                     aws ecs update-service ^
                         --cluster basic_app_cluster ^
-                        --service basic_app-service-lkn5lspv ^
+                        --service basic_app-service-1wd75p88 ^
                         --force-new-deployment ^
                         --region %REGION%
                     """
