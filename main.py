@@ -19,6 +19,7 @@ def index():
     data_source = load_iris() 
     df = pd.DataFrame(data=data_source.data, columns=data_source.feature_names)
     # Convert the top 5 rows to a list of dicts for JSON response
+    print('Its working')
     return df.head(5).to_dict(orient='records') 
     # iris_model.py
 
